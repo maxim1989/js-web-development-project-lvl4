@@ -2,7 +2,7 @@
 
 export default {
     translation: {
-    //   appName: 'Fastify Шаблон',
+      appName: 'Менеджер задач',
       flash: {
     //     session: {
     //       create: {
@@ -20,14 +20,14 @@ export default {
     //       },
     //     },
     //     authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
-    //   },
-    //   layouts: {
-    //     application: {
-    //       users: 'Пользователи',
-    //       signIn: 'Вход',
-    //       signUp: 'Регистрация',
-    //       signOut: 'Выход',
-    //     },
+      },
+      layouts: {
+        application: {
+          users: 'Пользователи',
+          signIn: 'Вход',
+          signUp: 'Регистрация',
+          signOut: 'Выход',
+        },
       },
       views: {
         // session: {
