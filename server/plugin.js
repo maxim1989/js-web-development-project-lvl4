@@ -10,7 +10,7 @@ import pointOfView from 'point-of-view';
 // import fastifySecureSession from 'fastify-secure-session';
 // import fastifyPassport from 'fastify-passport';
 import fastifySensible from 'fastify-sensible';
-// import { plugin as fastifyReverseRoutes } from 'fastify-reverse-routes';
+import { plugin as fastifyReverseRoutes } from 'fastify-reverse-routes';
 import fastifyMethodOverride from 'fastify-method-override';
 // import fastifyObjectionjs from 'fastify-objectionjs';
 // import qs from 'qs';
@@ -80,7 +80,7 @@ const setupLocalization = async () => {
 const registerPlugins = (app) => {
   app.register(fastifySensible);
   app.register(fastifyErrorPage);
-//   app.register(fastifyReverseRoutes);
+  app.register(fastifyReverseRoutes);
 //   app.register(fastifyFormbody, { parser: qs.parse });
 //   app.register(fastifySecureSession, {
 //     secret: process.env.SESSION_KEY,
