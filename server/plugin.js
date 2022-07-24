@@ -12,7 +12,7 @@ import pointOfView from 'point-of-view';
 import fastifySensible from 'fastify-sensible';
 import { plugin as fastifyReverseRoutes } from 'fastify-reverse-routes';
 import fastifyMethodOverride from 'fastify-method-override';
-// import fastifyObjectionjs from 'fastify-objectionjs';
+import fastifyObjectionjs from 'fastify-objectionjs';
 // import qs from 'qs';
 import Pug from 'pug';
 import i18next from 'i18next';
@@ -21,8 +21,8 @@ import ru from './locales/ru.js';
 
 import addRoutes from './routes/index.js';
 import getHelpers from './helpers/index.js';
-// import * as knexConfig from '../knexfile.js';
-// import models from './models/index.js';
+import * as knexConfig from '../knexfile.js';
+import models from './models/index.js';
 // import FormStrategy from './lib/passportStrategies/FormStrategy.js';
 
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
@@ -107,10 +107,10 @@ const registerPlugins = (app) => {
 //   )(...args));
 
   app.register(fastifyMethodOverride);
-//   app.register(fastifyObjectionjs, {
-    // knexConfig: knexConfig[mode],
-    // models,
-//   });
+  app.register(fastifyObjectionjs, {
+    knexConfig: knexConfig[mode],
+    models,
+  });
 };
 
 // eslint-disable-next-line no-unused-vars
