@@ -4,16 +4,15 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import fastifyStatic from 'fastify-static';
 import fastifyErrorPage from 'fastify-error-page';
-
 import pointOfView from 'point-of-view';
-// import fastifyFormbody from 'fastify-formbody';
-// import fastifySecureSession from 'fastify-secure-session';
-// import fastifyPassport from 'fastify-passport';
+import fastifyFormbody from 'fastify-formbody';
+import fastifySecureSession from 'fastify-secure-session';
+import fastifyPassport from 'fastify-passport';
 import fastifySensible from 'fastify-sensible';
 import { plugin as fastifyReverseRoutes } from 'fastify-reverse-routes';
 import fastifyMethodOverride from 'fastify-method-override';
 import fastifyObjectionjs from 'fastify-objectionjs';
-// import qs from 'qs';
+import qs from 'qs';
 import Pug from 'pug';
 import i18next from 'i18next';
 import ru from './locales/ru.js';
@@ -23,7 +22,7 @@ import addRoutes from './routes/index.js';
 import getHelpers from './helpers/index.js';
 import * as knexConfig from '../knexfile.js';
 import models from './models/index.js';
-// import FormStrategy from './lib/passportStrategies/FormStrategy.js';
+import FormStrategy from './lib/passportStrategies/FormStrategy.js';
 
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
 
@@ -69,42 +68,48 @@ const setupLocalization = async () => {
     });
 };
 
-// const addHooks = (app) => {
-//   app.addHook('preHandler', async (req, reply) => {
-//     reply.locals = {
-//       isAuthenticated: () => req.isAuthenticated(),
-//     };
-//   });
-// };
+const addHooks = (app) => {
+  app.addHook('preHandler', async (req, reply) => {
+    reply.locals = {
+      isAuthenticated: () => req.isAuthenticated(),
+    };
+  });
+};
 
 const registerPlugins = (app) => {
   app.register(fastifySensible);
   app.register(fastifyErrorPage);
   app.register(fastifyReverseRoutes);
-//   app.register(fastifyFormbody, { parser: qs.parse });
-//   app.register(fastifySecureSession, {
-//     secret: process.env.SESSION_KEY,
-//     cookie: {
-//       path: '/',
-//     },
-//   });
+  app.register(fastifyFormbody, { parser: qs.parse });
+  app.register(fastifySecureSession, {
+    secret: process.env.SESSION_KEY,
+    cookie: {
+      path: '/',
+    },
+  });
 
-//   fastifyPassport.registerUserDeserializer(
-    // (user) => app.objection.models.user.query().findById(user.id),
-//   );
-//   fastifyPassport.registerUserSerializer((user) => Promise.resolve(user));
-//   fastifyPassport.use(new FormStrategy('form', app));
-//   app.register(fastifyPassport.initialize());
-//   app.register(fastifyPassport.secureSession());
-//   app.decorate('fp', fastifyPassport);
-//   app.decorate('authenticate', (...args) => fastifyPassport.authenticate(
-    // 'form',
-    // {
-    //   failureRedirect: app.reverse('root'),
-    //   failureFlash: i18next.t('flash.authError'),
-    // },
   // @ts-ignore
-//   )(...args));
+  fastifyPassport.registerUserDeserializer(
+    (user) => app.objection.models.user.query().findById(user.id),
+  );
+  // @ts-ignore
+  fastifyPassport.registerUserSerializer((user) => Promise.resolve(user));
+  // @ts-ignore
+  fastifyPassport.use(new FormStrategy('form', app));
+  // @ts-ignore
+  app.register(fastifyPassport.initialize());
+  // @ts-ignore
+  app.register(fastifyPassport.secureSession());
+  app.decorate('fp', fastifyPassport);
+  // @ts-ignore
+  app.decorate('authenticate', (...args) => fastifyPassport.authenticate(
+    'form',
+    {
+      failureRedirect: app.reverse('root'),
+      failureFlash: i18next.t('flash.authError'),
+    },
+  // @ts-ignore
+  )(...args));
 
   app.register(fastifyMethodOverride);
   app.register(fastifyObjectionjs, {
@@ -114,6 +119,7 @@ const registerPlugins = (app) => {
 };
 
 // eslint-disable-next-line no-unused-vars
+// @ts-ignore
 export default async (app, options) => {
   registerPlugins(app);
 
@@ -121,7 +127,7 @@ export default async (app, options) => {
   setUpViews(app);
   setUpStaticAssets(app);
   addRoutes(app);
-//   addHooks(app);
+  addHooks(app);
 
   return app;
 };

@@ -1,0 +1,8 @@
+extends ../layouts/application.pug
+
+block content
+  +formFor()(action=`/users/${userInfo.user}` method='POST')
+    input(name="_method" type="hidden" value='PATCH')
+    +input(userInfo, 'firstName', errors)(type="text")
+    +input(userInfo, 'lastName', errors)(type="text")
+    +submit(userInfo)(value=t('views.users.new.update'))
