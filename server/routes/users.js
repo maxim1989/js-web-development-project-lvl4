@@ -74,5 +74,17 @@ export default (app) => {
             }
 
             return reply;
+        })
+        .delete('/users/:id', { name: 'deleteUser' }, async (req, reply) => {
+            try {
+                await app.objection.models.userInfo.query().delete().where('user', +req.params.id);
+                await app.objection.models.user.query().deleteById(+req.params.id);
+                req.flash('info', i18next.t('flash.users.delete.success'));
+                reply.redirect(app.reverse('users'));
+            } catch({ data }) {
+                req.flash('info', i18next.t('flash.users.delete.error'));
+                reply.redirect(app.reverse('users'));
+            }
+            
         });
 };

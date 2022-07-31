@@ -21,6 +21,10 @@ export default {
           update: {
             error: 'Не удалось обновить',
             success: 'Пользователь успешно обновлён',
+          },
+          delete: {
+            error: 'Не удалось удалить пользователя',
+            success: 'Пользователь успешно удалён',
           }
         },
         authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
@@ -45,6 +49,7 @@ export default {
           email: 'Email',
           createdAt: 'Дата создания',
           editLink: 'Редактировать',
+          deleteLink: 'Удалить',
           new: {
             submit: 'Сохранить',
             update: 'Обновить',
