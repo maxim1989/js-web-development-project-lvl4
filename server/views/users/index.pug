@@ -1,0 +1,21 @@
+extends ../layouts/application.pug
+
+block content
+  table.table.table-striped
+    thead
+      tr
+        th= t('views.users.id')
+        th= t('views.users.email')
+        th= t('views.users.createdAt')
+        th= t('views.users.editLink')
+        th= t('views.users.deleteLink')
+    tbody
+      each user in users
+        tr
+          td= user.id
+          td= user.email
+          td= formatDate(user.createdAt)
+          td
+            a(href=`/users/${user.id}/edit`) Edit
+          td
+            +buttonTo(`/users/${user.id}`, 'delete')(class="btn nav-link" value='Delete')

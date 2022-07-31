@@ -4,22 +4,30 @@ export default {
     translation: {
       appName: 'Менеджер задач',
       flash: {
-    //     session: {
-    //       create: {
-    //         success: 'Вы залогинены',
-    //         error: 'Неправильный емейл или пароль',
-    //       },
-    //       delete: {
-    //         success: 'Вы разлогинены',
-    //       },
-    //     },
-    //     users: {
-    //       create: {
-    //         error: 'Не удалось зарегистрировать',
-    //         success: 'Пользователь успешно зарегистрирован',
-    //       },
-    //     },
-    //     authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
+        session: {
+          create: {
+            success: 'Вы залогинены',
+            error: 'Неправильный емейл или пароль',
+          },
+          delete: {
+            success: 'Вы разлогинены',
+          },
+        },
+        users: {
+          create: {
+            error: 'Не удалось зарегистрировать',
+            success: 'Пользователь успешно зарегистрирован',
+          },
+          update: {
+            error: 'Не удалось обновить',
+            success: 'Пользователь успешно обновлён',
+          },
+          delete: {
+            error: 'Не удалось удалить пользователя',
+            success: 'Пользователь успешно удалён',
+          }
+        },
+        authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
       },
       layouts: {
         application: {
@@ -30,21 +38,24 @@ export default {
         },
       },
       views: {
-        // session: {
-        //   new: {
-        //     signIn: 'Вход',
-        //     submit: 'Войти',
-        //   },
-        // },
-        // users: {
-        //   id: 'ID',
-        //   email: 'Email',
-        //   createdAt: 'Дата создания',
-        //   new: {
-        //     submit: 'Сохранить',
-        //     signUp: 'Регистрация',
-        //   },
-        // },
+        session: {
+          new: {
+            signIn: 'Вход',
+            submit: 'Войти',
+          },
+        },
+        users: {
+          id: 'ID',
+          email: 'Email',
+          createdAt: 'Дата создания',
+          editLink: 'Редактировать',
+          deleteLink: 'Удалить',
+          new: {
+            submit: 'Сохранить',
+            update: 'Обновить',
+            signUp: 'Регистрация',
+          },
+        },
         welcome: {
           index: {
             hello: 'Привет от Хекслета!',
