@@ -31,19 +31,18 @@ export default (app) => {
             return reply;
         })
         .post('/users', async (req, reply) => {
-            console.log('>>> req.body.data', req.body.data);
             const user = new app.objection.models.user();
             user.$set(req.body.data);
 
-            // try {
+            try {
                 const validUser = await app.objection.models.user.fromJson(req.body.data);
                 await app.objection.models.user.query().insert(validUser);
                 req.flash('info', i18next.t('flash.users.create.success'));
                 reply.redirect(app.reverse('root'));
-            // } catch ({ data }) {
-                // req.flash('error', i18next.t('flash.users.create.error'));
-                // reply.render('users/new', { user, errors: data });
-            // }
+            } catch ({ data }) {
+                req.flash('error', i18next.t('flash.users.create.error'));
+                reply.render('users/new', { user, errors: data });
+            }
 
             return reply;
         })
