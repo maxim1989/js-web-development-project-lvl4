@@ -30,6 +30,20 @@ export default {
             success: 'Пользователь успешно удалён',
           }
         },
+        statuses: {
+          create: {
+            error: 'Не удалось создать статус',
+            success: 'Статус успешно создан',
+          },
+          update: {
+            error: 'Не удалось обновить',
+            success: 'Статус успешно обновлён',
+          },
+          delete: {
+            error: 'Не удалось удалить статус',
+            success: 'Статус успешно удалён',
+          },
+        },
         authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
       },
       layouts: {
@@ -38,6 +52,7 @@ export default {
           signIn: 'Вход',
           signUp: 'Регистрация',
           signOut: 'Выход',
+          statuses: 'Statuses',
         },
       },
       views: {
@@ -66,6 +81,18 @@ export default {
             more: 'Узнать Больше',
           },
         },
+        status: {
+          id: 'ID',
+          name: 'name',
+          created: 'Created',
+          edit: {
+            title: 'Edit status'
+          },
+          new: {
+            title: 'Create new status',
+            submit: 'Сохранить',
+          }
+        }
       },
     },
   };

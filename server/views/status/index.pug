@@ -1,0 +1,30 @@
+extends ../layouts/application.pug
+
+block header
+  div.container
+    div.row
+      div.col
+        = t('layouts.application.statuses')
+    div.row
+      div.col
+        a.btn.btn-primary(href=`/statuses/new`) Create
+
+block content
+  table.table.table-striped
+    thead
+      tr
+        th= t('views.status.id')
+        th= t('views.status.name')
+        th= t('views.status.created')
+        th
+        th
+    tbody
+      each status in statuses
+        tr
+          td= status.id
+          td= status.name
+          td= formatDate(status.created)
+          td
+            a(href=`/statuses/${status.id}/edit`) Edit
+          td
+            +buttonTo(`/statuses/${status.id}`, 'delete')(class="btn nav-link" value='Delete')

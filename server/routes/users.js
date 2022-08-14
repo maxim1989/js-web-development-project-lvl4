@@ -14,6 +14,12 @@ export default (app) => {
             reply.render('users/new', { user });
         })
         .get('/users/:id/edit', { name: 'editUser' }, async (req, reply) => {
+            if (!req.isAuthenticated()) {
+                req.flash('error', i18next.t('flash.authError'));
+                reply.redirect(app.reverse('users'));
+
+                return reply;
+            }
             if (req?.user?.id !== +req.params.id) {
                 req.flash('error', i18next.t('flash.users.view.error'));
                 reply.redirect(app.reverse('users'));
@@ -83,6 +89,12 @@ export default (app) => {
             return reply;
         })
         .delete('/users/:id', { name: 'deleteUser' }, async (req, reply) => {
+            if (!req.isAuthenticated()) {
+                req.flash('error', i18next.t('flash.authError'));
+                reply.redirect(app.reverse('users'));
+
+                return reply;
+            }
             if (req?.user?.id !== +req.params.id) {
                 req.flash('error', i18next.t('flash.users.view.error'));
                 reply.redirect(app.reverse('users'));
