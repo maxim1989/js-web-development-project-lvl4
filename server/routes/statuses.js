@@ -5,15 +5,33 @@ import i18next from 'i18next';
 export default (app) => {
     app
         .get('/statuses', { name: 'statuses' }, async (req, reply) => {
+            if (!req.isAuthenticated()) {
+                req.flash('error', i18next.t('flash.authError'));
+                reply.redirect(app.reverse('root'));
+
+                return reply;
+            }
             const statuses = await app.objection.models.status.query();
             reply.render('status/index', { statuses });
             return reply;
         })
         .get('/statuses/new', { name: 'newStatus' }, (req, reply) => {
+            if (!req.isAuthenticated()) {
+                req.flash('error', i18next.t('flash.authError'));
+                reply.redirect(app.reverse('root'));
+
+                return reply;
+            }
             const status = new app.objection.models.status();
             reply.render('status/new', { status });
         })
         .get('/statuses/:id/edit', { name: 'editStatus' }, async (req, reply) => {
+            if (!req.isAuthenticated()) {
+                req.flash('error', i18next.t('flash.authError'));
+                reply.redirect(app.reverse('root'));
+
+                return reply;
+            }
             const status = await app.objection.models.status.query().findById(req.params.id);
 
             await reply.render('status/edit', { status });
@@ -23,7 +41,7 @@ export default (app) => {
         .post('/statuses', async (req, reply) => {
             if (!req.isAuthenticated()) {
                 req.flash('error', i18next.t('flash.authError'));
-                reply.redirect(app.reverse('statuses'));
+                reply.redirect(app.reverse('root'));
 
                 return reply;
             }
@@ -45,7 +63,7 @@ export default (app) => {
         .patch('/statuses/:id', async (req, reply) => {
             if (!req.isAuthenticated()) {
                 req.flash('error', i18next.t('flash.authError'));
-                reply.redirect(app.reverse('statuses'));
+                reply.redirect(app.reverse('root'));
 
                 return reply;
             }
@@ -71,7 +89,7 @@ export default (app) => {
         .delete('/statuses/:id', { name: 'deleteStatus' }, async (req, reply) => {
             if (!req.isAuthenticated()) {
                 req.flash('error', i18next.t('flash.authError'));
-                reply.redirect(app.reverse('statuses'));
+                reply.redirect(app.reverse('root'));
 
                 return reply;
             }
