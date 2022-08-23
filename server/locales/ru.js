@@ -28,6 +28,7 @@ export default {
           delete: {
             error: 'Не удалось удалить пользователя',
             success: 'Пользователь успешно удалён',
+            task: 'Нельзя удалить пользователя - он привязан к задачам'
           }
         },
         statuses: {
@@ -42,6 +43,7 @@ export default {
           delete: {
             error: 'Не удалось удалить статус',
             success: 'Статус успешно удалён',
+            task: 'Нельзя удалить статус - он привязан к задачам'
           },
         },
         authError: 'Доступ запрещён! Пожалуйста, авторизируйтесь.',
@@ -53,6 +55,7 @@ export default {
           signUp: 'Регистрация',
           signOut: 'Выход',
           statuses: 'Statuses',
+          tasks: 'Задачи',
         },
       },
       views: {
@@ -92,6 +95,14 @@ export default {
             title: 'Create new status',
             submit: 'Сохранить',
           }
+        },
+        task: {
+          id: 'ID',
+          name: 'Наименование',
+          status: 'Статус',
+          creator: 'Автор',
+          executor: 'Исполнитель',
+          created: 'Дата создания',
         }
       },
     },

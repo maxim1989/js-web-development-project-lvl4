@@ -94,6 +94,15 @@ export default (app) => {
                 return reply;
             }
 
+            const taskStatus = await app.objection.models.task.query().findOne({ id: +req.params.id });
+
+            if (taskStatus) {
+                req.flash('info', i18next.t('flash.statuses.delete.task'));
+                reply.redirect(app.reverse('statuses'));
+
+                return reply;
+            }
+
             try {
                 await app.objection.models.status.query().deleteById(+req.params.id);
                 req.flash('info', i18next.t('flash.statuses.delete.success'));

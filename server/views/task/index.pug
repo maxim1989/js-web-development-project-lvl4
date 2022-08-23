@@ -1,0 +1,36 @@
+extends ../layouts/application.pug
+
+block header
+  div.container
+    div.row
+      div.col
+        = t('layouts.application.tasks')
+    //- div.row
+      //- div.col
+        //- a.btn.btn-primary(href='/tasks/new') Создать задачу
+
+block content
+  table.table.table-striped
+    thead
+      tr
+        th= t('views.task.id')
+        th= t('views.task.name')
+        th= t('views.task.status')
+        th= t('views.task.creator')
+        th= t('views.task.executor')
+        th= t('views.task.created')
+        th
+        th
+    tbody
+      each task in tasks
+        tr
+          td= task.id
+          td= task.name
+          td= task.status
+          td= task.creator
+          td= task.executor
+          td= formatDate(task.created)
+          td
+            //- a(href=`/statuses/${status.id}/edit`) Edit
+          td
+            //- +buttonTo(`/statuses/${status.id}`, 'delete')(class="btn nav-link" value='Delete')
